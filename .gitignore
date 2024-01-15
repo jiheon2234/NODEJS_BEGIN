@@ -28,3 +28,6 @@ pids
 
 # 디버깅 파일
 .nyc_output
+
+# ide
+.idea

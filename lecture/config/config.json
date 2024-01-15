@@ -2,7 +2,7 @@
   "development": {
     "username": "jiheon2234",
     "password": "0000",
-    "database": "database_development",
+    "database": "nodejsbook",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
