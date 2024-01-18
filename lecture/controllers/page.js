@@ -6,7 +6,6 @@ exports.renderJoin = ((req,res,next) => {
     res.render('join', {title: '회원 가입 - NodeBird'})
 })
 exports.renderMain = ((req,res,next) => {
-    console.log('als;efkajsewfl;ikaswfhl;eish')
     res.render('main',{
         title : 'NodeBird',
         twits : []
