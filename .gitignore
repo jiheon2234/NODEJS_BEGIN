@@ -31,3 +31,7 @@ pids
 
 # ide
 .idea
+
+# 저장소
+
+/lecture/uploads/

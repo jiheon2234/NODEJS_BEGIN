@@ -6,7 +6,7 @@ const {isLoggedIn, isNotLoggedIn} = require('../middlewears');
 router.use((req, res, next) => {
     res.locals.user = req.user
     res.locals.followCount = 0;
-    res.locals.followingIdList = [];
+    res.locals.followerIdList = [];
     next();
 });
 
