@@ -1,5 +1,5 @@
 const express = require('express')
-const {verifyToken} = require('../middlewears');
+const {verifyToken,deprecated} = require('../middlewears');
 const {createToken, tokenTest, getMyPosts, getPostsByHashtag} = require('../controllers/v1')
 
 
@@ -10,6 +10,7 @@ const router = express.Router();
 //     next(); // 다음 미들웨어나 라우트 핸들러로 제어를 넘깁니다.
 // });
 
+router.use(deprecated)
 
 // /v1/token
 router.post('/token',createToken)

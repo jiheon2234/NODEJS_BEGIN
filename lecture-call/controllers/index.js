@@ -15,12 +15,12 @@ const request = async (req, api) =>{
             headers : { authorization : req.session.jwt},
         })
     }catch (e) {
-        console.error(e);
+        // console.error(e);
         if(e.response?.status ===419){
             delete  req.session.jwt
             return request(req,api)
         }
-        throw e.response
+        return  e.response
     }
 };
 
@@ -42,6 +42,10 @@ exports.searchByHashtag = async(req,res,next) => {
         next(e)
     }
 };
+
+exports.renderMain = (req,res) =>{
+    res.render('main',{key : process.env.CLIENT_SECRET})
+}
 
 // exports.test = async (req, res, next) => {
 //     try {
