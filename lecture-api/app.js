@@ -14,6 +14,7 @@ const {sequelize} = require('./models');
 
 const authRouter = require('./routes/auth')
 const indexRouter = require('./routes/index')
+const v1Router = require('./routes/v1');
 
 
 const passportConfig = require('./passport');
@@ -54,9 +55,10 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session());
 
-
+app.use('/v1',v1Router)
 app.use('/auth',authRouter)
 app.use('/',indexRouter)
+
 
 
 app.use((req,res,next)=>{
