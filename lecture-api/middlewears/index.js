@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const rateLimit = require('express-rate-limit');
 const User = require('../models/user');
+const Domain = require('../models/domain');
 
 exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
@@ -41,19 +42,19 @@ exports.verifyToken = (req, res, next) => {
 
 exports.apiLimiter = async (req, res, next) => {
     let user;
-    if(res.locals.decoded.id) {
-         user = await User.findOne({where: {id: res.locals.decoded.id}})
+    if (res.locals.decoded.id) {
+        user = await User.findOne({where: {id: res.locals.decoded.id}});
     }
     rateLimit({
         windowMs: 30 * 500,
-        max: user?.type === 'premium' ? 1000 :10,
+        max: user?.type === 'premium' ? 1000 : 10,
         handler(req, res) {
             res.status(this.statusCode).json({
                 code: this.statusCode,
                 message: '1분에 10번만 만 요청 가능'
             });
         }
-    })(req,res,next)
+    })(req, res, next);
 };
 
 exports.deprecated = (req, res) => {
@@ -61,4 +62,16 @@ exports.deprecated = (req, res) => {
         code: 410,
         message: '새로운 버전을 사용하세요;'
     });
+};
+
+exports.corsWhenDomainMatches = async (req, res, next) => {
+    const domain = await Domain.findOne({
+        where: {host: new URL(req.get('origin').host)},
+    });
+    if (domain) {
+        cors({
+            origin: req.get('origin'),
+            credentials: true,
+        })(req, res, next);
+    }
 };
