@@ -10,15 +10,22 @@
 <body>
     <div></div>
 
+    <script src="/socket.io/socket.io.js">
+
+    </script>
+
 <script>
-    const websocket = new WebSocket("ws://localhost:8005")
-    websocket.onopen = function (){
-        console.log('서버와 ws 연결 성공')
-    }
-    websocket.onmessage = function(event){
-        console.log(event.data);
-        websocket.send('클라이언트에서 서버로 답장을 보냄');
-    }
+    const socket =  io.connect("http://localhost:8005",{
+        path  : '/socket.io',
+        transports : ['websocket'],
+    })
+
+
+  socket.on('news',(data)=>{
+      console.log(data)
+      socket.emit('reply','HELLO NODE!!!')
+  })
+
 
 
 </script>
